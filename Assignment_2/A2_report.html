@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 2</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 2</small>
+			Exploratory Data Analysis
+		</h1>
+
+		<p>
+			<strong>Oghenetega Ogodo</strong> — <em>tegaogod@mit.edu</em>
+		</p>
+	</header>
+	<main>
+		<section>
+			<h2>Subtheme: [CONDO CONVERSIONS (2015-2023)]</h2>
+
+			<h3>Introduction</h3>
+				<p>This dataset contains information on condo conversions in the greater Boston area from 2015 to 2024. The data set contains information before and after condo conversions and covers details on property types, quality of building infrastructure, types of infrastructure provided, tax district, assessors value, and sales price (<a href="https://github.com/gracefh/cambridge_condo_conversions/blob/main/condo_conversions.csv">see a full list of details provided here</a>). Parcel data from Cambridge GIS gives context to the fields provided in the dataset (<a href="https://github.com/cambridgegis/cambridgegis_data/tree/main/Assessing/FY2015/FY2015_Parcels">see full list of code here</a>).
+					For this assignment, the data has been manipulated to filter for condo lux, condominium, and condo buildings. The goal is to observe the trends for where the largest investments in condominiums are being made in greater Boston from 2015 to 2024, with a special interest in post-pandemic patterns. 
+				</p>
+
+			<h3>Understanding the Context of Defining Property Types for Different Cities</h3>
+				<p>Before digging into the sudden appearance and decline of condominiums, to understand more of how the property types are defined, I searched for the street addresses provided and cities on Google Maps. This does not account for the architectural context of the entire city, but it gives context to the reader on what an 8+ apartment in Everett versus Kingston looks like in the context of our dataset. 
+				   Also, we can trace ownership from the details provided online for some, like 82 Main St, Kingston, without ownership information. An example is 82 Main St, which is under (<a href="https://www.coldwellbankerhomes.com/ma/kingston/82-main-st-1/pid_46170225/">Coldwell Banker Realty</a>).  
+				</p>
+			
+			<figure>
+				<img src="../images/Everett_Building.jpg" alt="" />
+				<figcaption>
+					8+ residential unit:
+					531 Second Street, Everret MA.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Kingston_Street.jpeg" alt="" />
+				<figcaption>
+					8+ residential unit:
+					82 Main St, Kingston MA.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Cambridge_1.jpg" alt="" />
+				<figcaption>
+					Condominium:
+					88 Gore St, Cambridge MA.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/genMbmob.72089185_1.jpg" alt="" />
+				<figcaption>
+					Condominium:
+					3 Willson Avenue, Cambridge MA.
+				</figcaption>
+			</figure>
+
+
+			<p>It is important to note that some addresses did not appear on Google Maps. This was another advantage of skimming through the data. 
+			   For instance, 254 Broadway St in Swampscott, MA. What came up was a street in the City of Methuen, MA (See image below). 
+			   While this was valuable, I also recognize geocoding was an easier way to filter out property types without correct/missing addresses; however, filtering the property type column for just condos took the number of rows from 254 to 135 which was easier to skim.  
+			 </p>
+
+			<figure>
+				<img src="../images/Broadway.jpg" alt="" />
+				<figcaption>
+				 (<a href="https://www.forrent.com/ma/methuen/254-broadway/pl2yber">Image Source: Construction of 254 Broadway St Apartment Complex in Meuthen, MA</a>)
+				</figcaption>
+			</figure>
+
+			<p>Another challenge to consider is the null values under the address column. Longitude and latitude are automatically generated, 
+			   but points do not appear on the map without context on the city or zip code related to the street address. A fix was creating 
+			   a new column that calculates addresses that match an output address (prior and post). The city names are then copied where matches are found. 
+			   With this method, 135 matches were found for the address column.
+			</p>
+
+			<figure>
+				<img src="../images/Screenshot.png" alt="" />
+				<figcaption>
+					Error image from plotting longitude and latitude points
+				</figcaption>
+			</figure>
+
+			<p>3 of the addresses for the owner city are outside of Massachusetts: Atlanta, San Diego, and Texas.
+			</p>
+			
+
+			<h2>Overall Analysis Questions</h2>
+			<ol>
+				<li>What are the property types in Massachusetts, and which ones are largely being converted to condos?</li>
+				<li>Where are these condo conversions happening the most, and who owns them pre- and post-conversion?</li>
+				<li>What does building quality look like post-conversion?</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>Discoveries & Insights</h2>
+
+			<h3>What are the property types in Massachusetts, and which ones are largely being converted to condos?</h3>		
+
+			<p>Before Conversion: Exploring Property Types in the Greater Boston Area
+			</p>
+			
+			<p>The first step is exploring the kind of property currently in our dataset. 
+			   The Homes for Profit Analysis of Investor Activity in the Greater Boston Residential Real Estate Market, 2000 - 2022, shows that two- and three-family homes are the most common condo conversions happening under LLCs. This first question explores what properties were already available in the market before condo conversions. This lends itself to understanding property types converted. 
+			</p>
+
+			<p>After filtering through the 36 property types, 9 listed residential property types were observed in the data set. Multi-use residential properties were grouped as (MXD less than or equal to 3) for all multi-use buildings with 1 to 3 family units. 
+			</p>
+			
+			<p>Two (105), three (54) and single-family (22) residential properties are the three highest property types over the 10 years assessed. There is no clear definition for what affordable apartments refer to as a property type, but it accounts for the least amount in the chart below. There are also 19 condominiums available as well.
+			</p>
+ 
+
+
+			<figure>
+				<img src="../images/Property_type_prior.png" alt="" />
+				<figcaption>
+				Bar chart showing property types before conversion.
+				</figcaption>
+			</figure>
+
+			<p>Before diving into conversion rates, finding details on the only affordable apartment unit from the data set was important. 
+			   The address is noted as 402 Rindge Avenue, also known as Rindge Commons. Although the exact city is not provided, the only affordable housing unit with this address is found in Cambridge. 
+			   The owner's name from (<a href="https://www.cambridgeday.com/2022/10/21/construction-has-begun-on-rindge-commons-combining-affordable-housing-with-job-training/">Cambridge Common</a>) matches the information under the owner field, Rindge Tower Apartment LLC. This LLC is noted as a non-profit entity from the article, meaning more LLCs may not function as for-profit entities.
+			</p>
+
+			<p>The estimated completion of the additional affordable housing unit is estimated to be in 2026.
+			</p>
+
+			<figure>
+				<img src="../images/Rindge-Towers.jpg" alt="" />
+				<figcaption>
+				402 Rindge Avenue, Cambridge.
+				</figcaption>
+			</figure>
+
+			<p>A Closer Look at Condominiums After Conversion
+			</p>
+
+			<p>Here, we observe condo conversions to see what type of property types are changing. Do the results align with the report provided by Homes for Profit? This is mainly a gut-check question on the data quality. 
+			   Condo lux, Condo, and Condominium were merged into one since they all covered the same residential types. As expected, the highest conversions are attributed to property types, with the highest percentage in the greater Boston area. 
+			   A question that arises is when condo conversions have happened over the past 10 years. 
+			</p>
+
+			<figure>
+				<img src="../images/Property_type_post.png" alt="" />
+				<figcaption>
+				Bar chart showing property types converted to condos.
+				</figcaption>
+			</figure>
+
+			<p>From Figure 10 the line graph, condo conversions for the top three property types fell in 2017. There was a peak just before COVID but another dip in 2020 for two-family homes. Does this have to do with Covid? And what did property values look like at the time for these property types? (Answered further down).
+			</p>
+
+			<figure>
+				<img src="../images/Condo.png" alt="" />
+				<figcaption>
+				Line chart showing the distribution of top three property types converted to condos over 10 years .
+				</figcaption>
+			</figure>
+
+			<p>Looking at the aggregate of the assessed value, the sum of the building and land value, a similar trend is followed in how conversions happen. 
+			   However, I also noticed that three and single-family homes increased in conversions in 2020, as did the assessed value. 
+			   (<a href="https://homesforprofit.mapc.org/report">Source</a>)
+			</p>
+
+			<figure>
+				<img src="../images/Aggregate.png" alt="" />
+				<figcaption>
+				The aggregate of assessed, building, and land value.
+				</figcaption>
+			</figure>
+
+
+			<h3>Where are these condo conversions happening the most, and who owns them pre- and post-conversion?</h3>		
+
+			<p>Now that we understand what property types are being converted to condos and see the trend over 10 years, another important question is where two, three, and single-family homes are being converted in the Greater Boston area. Newton, Reading, and Brookline also have some conversions happening, but not at the same rate.
+			</p>
+
+			<p>The bar chart below shows Boston's highest conversion rate (49.50%) for two-family residential properties alone. 
+			</p>
+
+
+			<figure>
+				<img src="../images/Condo_Conversion.png" alt="" />
+				<figcaption>
+				Conversion of Condos by Cities.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Map_Used.png" alt="" />
+				<figcaption>
+				Distribution of cities with condo conversion using 2018 median household map.
+				</figcaption>
+			</figure>
+
+			<p>Following up with the initial question on property values, I was curious to understand the income level in the areas where condo conversions are happening. This is useful because the Home Profit report also highlights the sad reality of needing at least an annual income of $200,000 to afford a median-income home. The map shows clusters around census tracts with median incomes between $86,700 to $250,000. This is a wide range but a useful start as we explore. The Boston area has a lower income range ($51,200 to 64,300).  
+			</p>
+
+			<figure>
+				<img src="../images/Add_Year.png" alt="" />
+				<figcaption>
+				Bar chart of years labeled on cities showing assessed value prior.
+				</figcaption>
+			</figure>
+
+			<p>Another interest was looking into the assessed value based on the aggregate of assessed values before conversion. Cambridge has the largest cumulative value ($340 Million). However, the value decreased between 2015 and 2023. The line chart shows the care clearly and compared to other cities, Cambridge is the only city between Newton and Boston that picks up post-pandemic. It is important to note Cambridge was also misspelled as Cambridge and was grouped. Also, cities like Newton are recorded as $0 for assessment post condo conversion. 
+			   This is something to explore moving forward.  
+			</p>
+
+			<figure>
+				<img src="../images/Condo_Close.png" alt="" />
+				<figcaption>
+				Line chart showing assessed value of cities prior between 2015-2023. The y axis contain cities under a column named attempt (this was derived from the calculation field described earlier)
+				</figcaption>
+			</figure>
+
+			<p>Finally, looking into the issue of tenant displacement due to condo conversions, I was curious about how ownership changed before and after. 
+			   I initially expected to see more individual-owned (meaning non-institutional and having only names of people under the owner name column) properties selling off to LLCs, but the numbers stay fairly the same. LLCs and Trustees control the market more before and after condo conversions. Based on property types, LLCs and Trustees have more control of two-family and three-family residential properties.
+			 </p>
+
+			<figure>
+				<img src="../images/Pie_Chart.png" alt="" />
+				<figcaption>
+				Prior Ownership Distribution.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Pie_Chart_2.png" alt="" />
+				<figcaption>
+				Post Ownership Distribution.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Pie_Chart_3.png" alt="" />
+				<figcaption>
+				Bar chart of distribution between private entities and individual/co-owners for condos.
+				</figcaption>
+			</figure>
+
+			<p>It is also interesting to see ownership distribution compared to where condo versions are happening based on the map from question 2. 
+			   There is a wider distribution across the Greater Boston area compared to the cluster of development we see in the Cambridge/Somerville area. Perhaps there is a stronger drive for condo conversion based on where developers see higher land value. This is also an area to investigate further.
+			</p>
+
+			<figure>
+				<img src="../images/Map_2.png" alt="" />
+				<figcaption>
+				Ownership Distribution with 2018 Median Household Income.
+				</figcaption>
+			</figure>
+
+			<p>Finally, digging into why Cambridge may be the hotspot for condo conversions, details on city residential exemptions exist. 
+			   On the (<a href="https://www.cambridgema.gov/iwantto/applyforaresidentialexemption#:~:text=Taxpayers%20who%20own%20and%20occupy,start%20of%20the%20fiscal%20year.">City of Cambridge page</a>), this exemption is for taxpayers who own and occupy their homes can save on their tax bill by having a portion of their tax bill exempted from taxation. To qualify for the residential exemption, homeowners must own and occupy their home on January 1 before the fiscal year's start. (<a href="https://www.mass.gov/info-details/massachusetts-law-about-property-taxes#:~:text=Massachusetts%20laws,-MGL%20c.&text=Includes%20clauses%20for%20real%20estate,and%20religious%20and%20charitable%20organizations.">Massachusetts law</a>) on property taxes also states that real estate tax exemptions are for blind persons, qualifying senior citizens, qualifying surviving spouses, minor children and elderly persons, qualifying veterans, and religious and charitable organizations.
+			 </p>
+
+			 <p>Looking at where these taxes are concentrated, we see Cambridge has the highest number, although still has a significant portion (42 out of 111) of areas without tax exemptions. The numbers before conversion are not significantly different. Understanding where residential benefits are provided is also important because it gives a sense of who may occupy the buildings. However, considering the null values, we may not have enough information to build this argument moving forward. 
+			</p>
+
+			<figure>
+				<img src="../images/Residential_Tax.png" alt="" />
+				<figcaption>
+				Bar chart of areas with residential tax exemptions prior to conversion
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Residential_Tax_2.png" alt="" />
+				<figcaption>
+				Bar chart of areas with residential tax exemptions post conversion
+				</figcaption>
+			</figure>
+
+
+			<h3>Who is Really Making Profit? </h3>		
+
+			<p>A follow-up question is what price point buildings being converted are sold. The Home Profit report highlights the challenge of private entities having more control in the market due to their access to cash and in some cases, can access properties at a lower rate due to this. How well does this hold up from the data provided? 
+
+				From the chart (sale price difference for condo conversion), we see that buildings are sold relatively at the same price or less. Only 12.14% are sold at a higher rate. For properties being sold at a lower rate, we see a larger count happening after 2019 (sale price vs sale year for condo conversion).
+			</p>
+
+			<figure>
+				<img src="../images/Sale_Price.png" alt="" />
+				<figcaption>
+				Sale price difference for condo conversions
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Sale_Vs_Year.png" alt="" />
+				<figcaption>
+				Sale price difference vs the Year of Sale 
+				</figcaption>
+			</figure>
+
+			<p>Also, what do these numbers look like between the two larger shareholders in the housing market? Compared to LLCs, approximately only half the transactions happen at a lower price.
+			</p>
+
+			<figure>
+				<img src="../images/OwnerSale_Price.png" alt="" />
+				<figcaption>
+				Owner versus Sale Difference of Condos
+				</figcaption>
+			</figure>
+
+			<h3>What does building quality look like after condo conversion?</h3>		
+
+			<p>The Cambridge Post article on the renters at the Millbrooks apartment being converted to a condo highlighted the degrading building condition for tenants. This data set provided some details on building conditions we can explore.
+			</p>
+
+			<p>From about 200 units converted to condos, there are 160 nulls on the overall building conditions. We find that the quality for excellent and good differs most from prior conditions when excluding the nulls. From 32 excellent units, there are now only 24 considered excellent. 
+			</p>
+
+			<figure>
+				<img src="../images/Overall_Post.png" alt="" />
+				<figcaption>
+				Overall condition post conversion
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="../images/Condition_All.png" alt="" />
+				<figcaption>
+				Overall condition post conversion, excluding null and comparing condition prior.
+				</figcaption>
+			</figure>
+
+
+		</section>
+
+		<section>
+			<h2>Summary</h2>
+
+			<p>In the Greater Boston Area, two and three-family homes are the largest property types being converted to condos. An average of 167 units are created from two-family residential types and 99 from three-family residential types. Cambridge has the largest conversions happening, and LLCs and Trustees own most properties. 
+			   Some preliminary questions on property value also show Cambridge with a higher average even post-pandemic. There are also more residential tax exemptions provided in the Cambridge area. More analysis needs to be done to understand variables that correlate and drive condo conversions in certain cities versus others.</p>
+
+			<p>Properties being converted are sold at a lower price to LLCs and Trustees, and most of those sales happen after 2019. There needs to be more research to understand if the pandemic largely influenced this. In terms of quality, the overall condition of buildings converted to condos stary relatively excellent, but there are a few where excellent conditions become poor or average. 
+			   It will be important to assess where this is happening moving forward. Perhaps digging into the availability of amenities before and after the conversion will give more clarity.</p>
+		</section>
+	</main>
+</body>
+</html>
