@@ -7,10 +7,6 @@ body {
   padding: 100px 50px 200px; /*Add padding to sides */
   margin: 0 auto; /* This centers the content horizontally within the max-width */
 }
-h1 {
-	line-height: 1.1;
-}
-
-h1 em {
-	color: rebeccapurple;
+nav ul {
+  display: contents;
 }
