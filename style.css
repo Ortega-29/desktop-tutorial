@@ -3,8 +3,14 @@ body {
      and use the OS’s UI font as the website font
   */
   font: 100%/1.5 system-ui;
-  max-width: 100%; /* Set max-width to 100 characters */
-  height: auto;
+  max-width: 100ch; /* Set max-width to 100 characters */
   padding: 100px 50px 200px; /*Add padding to sides */
   margin: 0 auto; /* This centers the content horizontally within the max-width */
+}
+h1 {
+	line-height: 1.1;
+}
+
+h1 em {
+	color: rebeccapurple;
 }
