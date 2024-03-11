@@ -3,7 +3,8 @@ body {
      and use the OS’s UI font as the website font
   */
   font: 100%/1.5 system-ui;
-  max-width: 100ch; /* Set max-width to 100 characters */
+  max-width: 100%; /* Set max-width to 100 characters */
+  height: auto;
   padding: 100px 50px 200px; /*Add padding to sides */
   margin: 0 auto; /* This centers the content horizontally within the max-width */
 }
