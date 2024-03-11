@@ -4,6 +4,6 @@ body {
   */
   font: 100%/1.5 system-ui;
   max-width: 100ch; /* Set max-width to 100 characters */
-  padding: 20px 50px 20px; /*Add padding to sides */
+  padding: 100px 50px 200px; /*Add padding to sides */
   margin: 0 auto; /* This centers the content horizontally within the max-width */
 }
