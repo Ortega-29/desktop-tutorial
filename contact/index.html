@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <nav>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../projects/index.html">About</a></li>
-            <li><a href="../contact/index.html">Contact</a></li>
-            <li><a href= "../resume/index.html">Resume</a></li>
-            <li><a href= "../Assignment_2/index.html">Assignment_2</a></li>
-            <li><a href= "../Assignment_3/index.html">Assignment_3</a></li>
-            <li><a href="https://github.com/Ortega-29" target="_blank">GitHub</a></li>
+            <li><a class="home" href="../index.html">Home</a></li>
+            <li><a class="current" href="../projects/index.html">Projects</a></li>
+            <li><a class="current" href="../contact/index.html">Contact</a></li>
+            <li><a class="current" href= "../resume/index.html">Resume</a></li>
+            <li><a class="current" href= "../Assignment_2/index.html">Assignment_2</a></li>
+            <li><a class="current" href= "../Assignment_3/index.html">Assignment_3</a></li>
+            <li><a class="current" href="https://github.com/Ortega-29" target="_blank">GitHub</a></li>
         </ul>
     </nav>
+
     <h1>Contacts</h1>
-    <form action=""mailto:YOUR_EMAIL_ADDRESS" method="="POST" enctype="text/plain">
+    <form action="ortegaogodo@gmail.com" method="post" enctype="text/plain">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
@@ -28,7 +31,7 @@
         <label for="message">Message:</label><br>
         <textarea id="message" name="body" rows="4" cols="50" required></textarea><br><br>
 
-        <button>Submit</button>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>

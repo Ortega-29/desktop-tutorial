@@ -1,0 +1,202 @@
+:root{
+  --color-accent: oklch(65% 50% 0); 
+}
+
+html {
+  accent-color: var(--color-accent);
+}
+
+
+body {
+  /* Set line height to 1.5 times the font size
+     and use the OS’s UI font as the website font
+  */
+  font: 100%/1.5 system-ui;
+  max-width: 200ch; 
+  padding: 30px;
+  margin-inline: auto;
+}
+
+
+li {
+  display: contents;
+}
+
+ul {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  margin-bottom: 10%;
+}
+
+ul li a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #BFBFBF;
+}
+
+ul li .home {
+  border-bottom: solid #32a1ce;
+  padding-bottom: 1ch;
+}
+
+nav ul li a:hover {
+  border-bottom: 0.4em solid var(--color-accent); 
+  padding-bottom: 0.6em;
+  background-color: oklch(from var(--color-accent) 95% 5% h)
+}
+
+img {
+  max-width: 100%;
+  margin-right: 10px;
+}
+
+/* Adding grid to each project */
+.projects{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
+.project_1 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_1 > h2 {
+  margin: 0 
+}
+
+.project_1 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_1 > h2 {
+  margin: 0 
+}
+
+/* Project 2 */
+.project_2 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_2 > h2 {
+  margin: 0 
+}
+
+.project_3 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_3 > h2 {
+  margin: 0 
+}
+
+.project_4 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_4 > h2 {
+  margin: 0 
+}
+
+.project_5 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_5 > h2 {
+  margin: 0 
+}
+
+.project_6 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_6 > h2 {
+  margin: 0 
+}
+
+.project_7 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_7 > h2 {
+  margin: 0 
+}
+
+.project_8 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_8 > h2 {
+  margin: 0 
+}
+
+.project_9 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_9 > h2 {
+  margin: 0 
+}
+
+.project_10 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_10 > h2 {
+  margin: 0 
+}
+
+.project_11 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_11 > h2 {
+  margin: 0 
+}
+
+.project_12 {
+  display:grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+.project_12 > h2 {
+  margin: 0 
+}
+
+h1 {
+  font-size: 400%;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
